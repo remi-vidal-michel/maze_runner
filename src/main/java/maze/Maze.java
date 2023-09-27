@@ -32,7 +32,7 @@ public class Maze {
                 default -> throw new MazeGenerationException("Méthode de génération invalide.");
             };
             case "imperfect" -> switch (generatorMethod.toLowerCase()) {
-                case "simple" -> new SimpleImperfectMazeGenerator();
+                case "simple" -> new SimpleImperfectMazeGenerator(maze, width, height);
                 case "graph" -> new GraphBasedMazeGenerator();
                 case "optimized" -> new OptimizedMazeGenerator();
                 default -> throw new MazeGenerationException("Méthode de génération invalide.");

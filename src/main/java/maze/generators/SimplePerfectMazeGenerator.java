@@ -50,21 +50,24 @@ public class SimplePerfectMazeGenerator implements MazeGenerator {
                     case 0 -> {
                         maze[id].removeWall(0);
                         maze[id - width].removeWall(2);
+                        path.push(id - width);
                     }
                     case 1 -> {
                         maze[id].removeWall(1);
                         maze[id + 1].removeWall(3);
+                        path.push(id + 1);
                     }
                     case 2 -> {
                         maze[id].removeWall(2);
                         maze[id + width].removeWall(0);
+                        path.push(id + width);
                     }
                     case 3 -> {
                         maze[id].removeWall(3);
                         maze[id - 1].removeWall(1);
+                        path.push(id - 1);
                     }
                 }
-                path.push(id + (index == 0 ? -width : index == 1 ? 1 : index == 2 ? width : -1));
                 visited++;
             } else {
                 path.pop();

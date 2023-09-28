@@ -3,9 +3,7 @@ package maze.generators;
 import maze.Cell;
 import maze.MazeGenerator;
 
-import java.util.List;
 import java.util.Random;
-import java.util.Stack;
 
 public class GraphBasedMazeGenerator implements MazeGenerator {
     Random rand = new Random();

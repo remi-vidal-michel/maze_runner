@@ -70,7 +70,7 @@ public class SimpleImperfectMazeGenerator implements MazeGenerator {
                 path.pop();
             }
         }
-        if (cell[0].hasWall(0)) {
+        if (cell[0].hasWall(1)) {
             cell[0].removeWall(1);
             cell[1].removeWall(3);
         } else {

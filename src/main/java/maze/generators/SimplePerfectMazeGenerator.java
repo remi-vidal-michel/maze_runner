@@ -17,9 +17,8 @@ public class SimplePerfectMazeGenerator implements MazeGenerator {
     public void generateMaze(Cell[] cell, int width, int height) {
         Stack<Integer> path = new Stack<>();
         path.push(0);
-        int visited = 1;
 
-        while (visited < width * height) {
+        while (!path.isEmpty()) {
             int id = path.peek();
             cell[id].setVisited();
             int x = id % width;
@@ -67,7 +66,6 @@ public class SimplePerfectMazeGenerator implements MazeGenerator {
                         path.push(id - 1);
                     }
                 }
-                visited++;
             } else {
                 path.pop();
             }

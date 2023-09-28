@@ -24,13 +24,13 @@ public class Maze {
 
             case "perfect" -> switch (generatorMethod.toLowerCase()) {
                 case "simple" -> new SimplePerfectMazeGenerator(cell, width, height);
-                case "graph" -> new GraphBasedMazeGenerator();
+                case "graph" -> new GraphBasedMazeGenerator(cell, width, height);
                 case "optimized" -> new OptimizedMazeGenerator();
                 default -> throw new MazeGenerationException("Méthode de génération invalide.");
             };
             case "imperfect" -> switch (generatorMethod.toLowerCase()) {
                 case "simple" -> new SimpleImperfectMazeGenerator(cell, width, height);
-                case "graph" -> new GraphBasedMazeGenerator();
+                case "graph" -> new GraphBasedMazeGenerator(cell, width, height);
                 case "optimized" -> new OptimizedMazeGenerator();
                 default -> throw new MazeGenerationException("Méthode de génération invalide.");
             };

@@ -9,34 +9,33 @@ import java.util.Stack;
 public class SimplePerfectMazeGenerator implements MazeGenerator {
     Random rand = new Random();
 
-    public SimplePerfectMazeGenerator(Cell[] maze, int width, int height) {
-        generateMaze(maze, width, height);
+    public SimplePerfectMazeGenerator(Cell[] cell, int width, int height) {
+        generateMaze(cell, width, height);
     }
 
     @Override
-    public void generateMaze(Cell[] maze, int width, int height) {
+    public void generateMaze(Cell[] cell, int width, int height) {
         Stack<Integer> path = new Stack<>();
         path.push(0);
         int visited = 1;
 
         while (visited < width * height) {
             int id = path.peek();
-            maze[id].visited = true;
-//            System.out.println("id: " + id);
+            cell[id].setVisited();
             int x = id % width;
             int y = id / width;
 
             int[] possibilities = {1, 1, 1, 1};
-            if (x == 0 || maze[id - 1].isVisited()) {
+            if (x == 0 || cell[id - 1].isVisited()) {
                 possibilities[3] = 0;
             }
-            if (x == width - 1 || maze[id + 1].isVisited()) {
+            if (x == width - 1 || cell[id + 1].isVisited()) {
                 possibilities[1] = 0;
             }
-            if (y == 0 || maze[id - width].isVisited()) {
+            if (y == 0 || cell[id - width].isVisited()) {
                 possibilities[0] = 0;
             }
-            if (y == height - 1 || maze[id + width].isVisited()) {
+            if (y == height - 1 || cell[id + width].isVisited()) {
                 possibilities[2] = 0;
             }
 
@@ -48,23 +47,23 @@ public class SimplePerfectMazeGenerator implements MazeGenerator {
                 }
                 switch (index) {
                     case 0 -> {
-                        maze[id].removeWall(0);
-                        maze[id - width].removeWall(2);
+                        cell[id].removeWall(0);
+                        cell[id - width].removeWall(2);
                         path.push(id - width);
                     }
                     case 1 -> {
-                        maze[id].removeWall(1);
-                        maze[id + 1].removeWall(3);
+                        cell[id].removeWall(1);
+                        cell[id + 1].removeWall(3);
                         path.push(id + 1);
                     }
                     case 2 -> {
-                        maze[id].removeWall(2);
-                        maze[id + width].removeWall(0);
+                        cell[id].removeWall(2);
+                        cell[id + width].removeWall(0);
                         path.push(id + width);
                     }
                     case 3 -> {
-                        maze[id].removeWall(3);
-                        maze[id - 1].removeWall(1);
+                        cell[id].removeWall(3);
+                        cell[id - 1].removeWall(1);
                         path.push(id - 1);
                     }
                 }
@@ -80,7 +79,6 @@ public class SimplePerfectMazeGenerator implements MazeGenerator {
         for (int value : array) {
             sum += value;
         }
-//        System.out.println(sum);
         return sum;
     }
 }

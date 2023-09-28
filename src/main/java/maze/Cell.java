@@ -13,15 +13,8 @@ public class Cell {
     public boolean isVisited() {
         return visited;
     }
-
-    public void setVisited() {
-        this.visited = true;
-    }
-    
-    public boolean hasWall(int direction) {
-        return wall[direction];
-    }
-    
+    public void setVisited() { this.visited = true; }
+    public boolean hasWall(int direction) { return wall[direction]; }
     public void removeWall(int direction) {
         wall[direction] = false;
     }

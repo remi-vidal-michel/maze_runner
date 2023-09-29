@@ -66,5 +66,14 @@ public class GraphBasedMazeGenerator implements MazeGenerator {
                 path.pop();
             }
         }
+        if (!perfect) {
+            if (cell[0].hasWall(1)) {
+                cell[0].removeWall(1);
+                cell[1].removeWall(3);
+            } else {
+                cell[0].removeWall(2);
+                cell[width].removeWall(0);
+            }
+        }
     }
 }

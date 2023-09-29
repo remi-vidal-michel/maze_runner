@@ -15,16 +15,17 @@ public class GraphBasedMazeGenerator implements MazeGenerator {
 
     @Override
     public void generateMaze(Cell[] cell, int width, int height, boolean perfect) {
+        List<Integer> possibilities = new ArrayList<>();
         Stack<Integer> path = new Stack<>();
         path.push(0);
 
         while (!path.isEmpty()) {
+            possibilities.clear();
             int id = path.peek();
             cell[id].setVisited();
             int x = id % width;
             int y = id / width;
 
-            List<Integer> possibilities = new ArrayList<>();
             if (x != 0 && !cell[id - 1].isVisited()) {
                 possibilities.add(3);
             }
@@ -39,8 +40,8 @@ public class GraphBasedMazeGenerator implements MazeGenerator {
             }
 
             if (!possibilities.isEmpty()) {
-                int index = (int) (Math.random() * possibilities.size());
-                switch (possibilities.get(index)) {
+                int direction = (int) (Math.random() * possibilities.size());
+                switch (possibilities.get(direction)) {
                     case 0 -> {
                         cell[id].removeWall(0);
                         cell[id - width].removeWall(2);

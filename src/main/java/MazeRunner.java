@@ -1,11 +1,10 @@
 import maze.Maze;
-import maze.exceptions.MazeGenerationException;
 
 public class MazeRunner {
     public static void main(String[] args) {
         try {
             if (args.length != 4) {
-                printUsage();
+                howToUse();
                 return;
             }
 
@@ -16,26 +15,26 @@ public class MazeRunner {
 
             if (width < 5 || height < 5) {
                 System.err.println("Erreur : Veuillez fournir une largeur et une hauteur valides supérieurs à 5");
-                printUsage();
+                howToUse();
                 return;
             }
 
             if (!isValidGenerationType(generationType) || !isValidGeneratorMethod(generatorMethod)) {
                 System.err.println("Erreur : Veuillez fournir un type de labyrinthe et une méthode de génération valides.");
-                printUsage();
+                howToUse();
                 return;
             }
 
             new Maze(width, height, generationType, generatorMethod);
         } catch (NumberFormatException e) {
-            System.err.println("Erreur : Veuillez fournir des nombres valides pour la largeur et la hauteur.");
-            printUsage();
-        } catch (MazeGenerationException e) {
+            System.err.println("Erreur : Veuillez fournir une largeur et une hauteur valides supérieurs à 5");
+            howToUse();
+        } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException | OutOfMemoryError e) {
             System.err.println("Erreur inattendue lors de la génération du labyrinthe. Veuillez réessayer.");
         }
     }
 
-    private static void printUsage() {
+    private static void howToUse() {
         System.err.println("Utilisation : java -jar MazeRunner.jar [largeur] [hauteur] [perfect/imperfect] [simple/graph/optimized]");
     }
 

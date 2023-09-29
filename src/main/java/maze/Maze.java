@@ -1,7 +1,9 @@
 package maze;
 
 import maze.exceptions.MazeGenerationException;
-import maze.generators.*;
+import maze.generators.GraphBasedMazeGenerator;
+import maze.generators.OptimizedMazeGenerator;
+import maze.generators.SimpleMazeGenerator;
 
 public class Maze {
     public int width, height;

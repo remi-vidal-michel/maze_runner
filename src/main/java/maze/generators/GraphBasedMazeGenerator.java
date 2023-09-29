@@ -3,11 +3,11 @@ package maze.generators;
 import maze.Cell;
 import maze.MazeGenerator;
 
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class GraphBasedMazeGenerator implements MazeGenerator {
-    Random rand = new Random();
 
     public GraphBasedMazeGenerator(Cell[] cell, int width, int height, boolean perfect) {
         generateMaze(cell, width, height, perfect);
@@ -24,27 +24,23 @@ public class GraphBasedMazeGenerator implements MazeGenerator {
             int x = id % width;
             int y = id / width;
 
-            int[] possibilities = {1, 1, 1, 1};
-            if (x == 0 || cell[id - 1].isVisited()) {
-                possibilities[3] = 0;
+            List<Integer> possibilities = new ArrayList<>();
+            if (x != 0 && !cell[id - 1].isVisited()) {
+                possibilities.add(3);
             }
-            if (x == width - 1 || cell[id + 1].isVisited()) {
-                possibilities[1] = 0;
+            if (x != width - 1 && !cell[id + 1].isVisited()) {
+                possibilities.add(1);
             }
-            if (y == 0 || cell[id - width].isVisited()) {
-                possibilities[0] = 0;
+            if (y != 0 && !cell[id - width].isVisited()) {
+                possibilities.add(0);
             }
-            if (y == height - 1 || cell[id + width].isVisited()) {
-                possibilities[2] = 0;
+            if (y != height - 1 && !cell[id + width].isVisited()) {
+                possibilities.add(2);
             }
 
-            if (sum(possibilities) != 0) {
-                int index = rand.nextInt(4);
-
-                while (possibilities[index] == 0) {
-                    index = rand.nextInt(4);
-                }
-                switch (index) {
+            if (!possibilities.isEmpty()) {
+                int index = (int) (Math.random() * possibilities.size());
+                switch (possibilities.get(index)) {
                     case 0 -> {
                         cell[id].removeWall(0);
                         cell[id - width].removeWall(2);
@@ -70,22 +66,5 @@ public class GraphBasedMazeGenerator implements MazeGenerator {
                 path.pop();
             }
         }
-        if (!perfect) {
-            if (cell[0].hasWall(1)) {
-                cell[0].removeWall(1);
-                cell[1].removeWall(3);
-            } else {
-                cell[0].removeWall(2);
-                cell[width].removeWall(0);
-            }
-        }
-    }
-
-    public static int sum(int[] array) {
-        int sum = 0;
-        for (int value : array) {
-            sum += value;
-        }
-        return sum;
     }
 }

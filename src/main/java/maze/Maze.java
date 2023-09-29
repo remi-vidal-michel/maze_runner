@@ -36,7 +36,7 @@ public class Maze {
                     case "optimized" -> new OptimizedMazeGenerator(cell, width, height, false);
                 }
             }
-        };
+        }
     }
 
     private void initializeGrid() {

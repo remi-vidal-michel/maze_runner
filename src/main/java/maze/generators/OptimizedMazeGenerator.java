@@ -3,12 +3,14 @@ package maze.generators;
 import maze.Cell;
 import maze.MazeGenerator;
 
-import java.util.Random;
-
 public class OptimizedMazeGenerator implements MazeGenerator {
-    Random rand = new Random();
+
+    public OptimizedMazeGenerator(Cell[] cell, int width, int height, boolean perfect) {
+        generateMaze(cell, width, height, perfect);
+    }
 
     @Override
-    public void generateMaze(Cell[] cell, int width, int height) {
+    public void generateMaze(Cell[] cell, int width, int height, boolean perfect) {
+        System.out.println("OptimizedMazeGenerator");
     }
 }

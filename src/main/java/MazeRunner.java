@@ -8,6 +8,7 @@ public class MazeRunner {
         int height = Integer.parseInt(args[1]);
         String generationType = args[2];
         String generatorMethod = args[3];
+
         new Maze(width, height, generationType, generatorMethod);
     }
 }

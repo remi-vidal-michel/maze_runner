@@ -11,8 +11,8 @@ public class Maze {
     public Maze(int width, int height, String generationType, String generatorMethod) throws MazeGenerationException {
         this.width = width;
         this.height = height;
-        this.generationType = generationType;
-        this.generatorMethod = generatorMethod;
+        this.generationType = generationType; // perfect or imperfect
+        this.generatorMethod = generatorMethod; // simple, graph or optimized
         cell = new Cell[width * height];
         initializeGrid();
         selectGenerator();
@@ -23,15 +23,15 @@ public class Maze {
         MazeGenerator generator = switch (generationType.toLowerCase()) {
 
             case "perfect" -> switch (generatorMethod.toLowerCase()) {
-                case "simple" -> new SimplePerfectMazeGenerator(cell, width, height);
-                case "graph" -> new GraphBasedMazeGenerator(cell, width, height);
-                case "optimized" -> new OptimizedMazeGenerator();
+                case "simple" -> new SimpleMazeGenerator(cell, width, height, true);
+                case "graph" -> new GraphBasedMazeGenerator(cell, width, height, true);
+                case "optimized" -> new OptimizedMazeGenerator(cell, width, height, true);
                 default -> throw new MazeGenerationException("Méthode de génération invalide.");
             };
             case "imperfect" -> switch (generatorMethod.toLowerCase()) {
-                case "simple" -> new SimpleImperfectMazeGenerator(cell, width, height);
-                case "graph" -> new GraphBasedMazeGenerator(cell, width, height);
-                case "optimized" -> new OptimizedMazeGenerator();
+                case "simple" -> new SimpleMazeGenerator(cell, width, height, false);
+                case "graph" -> new GraphBasedMazeGenerator(cell, width, height, false);
+                case "optimized" -> new OptimizedMazeGenerator(cell, width, height, false);
                 default -> throw new MazeGenerationException("Méthode de génération invalide.");
             };
             default -> throw new MazeGenerationException("Type de labyrinthe invalide.");
@@ -39,18 +39,14 @@ public class Maze {
     }
 
     private void initializeGrid() {
-        int id = 0;
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                cell[id] = new Cell(x, y);
-                id++;
+        for (int id = 0; id < cell.length; id++) {
+                cell[id] = new Cell(id);
             }
-        }
     }
 
     public void displayMaze() {
-        cell[0].removeWall(3);
-        cell[cell.length - 1].removeWall(1);
+        cell[0].removeWall(0);
+        cell[cell.length - 1].removeWall(2);
         int delta = 0;
         for (int y = 0; y < height; y++) {
             StringBuilder str1 = new StringBuilder();

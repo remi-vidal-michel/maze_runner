@@ -6,15 +6,15 @@ import maze.MazeGenerator;
 import java.util.Random;
 import java.util.Stack;
 
-public class SimpleImperfectMazeGenerator implements MazeGenerator {
+public class SimpleMazeGenerator implements MazeGenerator {
     Random rand = new Random();
 
-    public SimpleImperfectMazeGenerator(Cell[] cell, int width, int height) {
-        generateMaze(cell, width, height);
+    public SimpleMazeGenerator(Cell[] cell, int width, int height, boolean perfect) {
+        generateMaze(cell, width, height, perfect);
     }
 
     @Override
-    public void generateMaze(Cell[] cell, int width, int height) {
+    public void generateMaze(Cell[] cell, int width, int height, boolean perfect) {
         Stack<Integer> path = new Stack<>();
         path.push(0);
 
@@ -70,12 +70,14 @@ public class SimpleImperfectMazeGenerator implements MazeGenerator {
                 path.pop();
             }
         }
-        if (cell[0].hasWall(1)) {
-            cell[0].removeWall(1);
-            cell[1].removeWall(3);
-        } else {
-            cell[0].removeWall(2);
-            cell[width].removeWall(0);
+        if (!perfect) {
+            if (cell[0].hasWall(1)) {
+                cell[0].removeWall(1);
+                cell[1].removeWall(3);
+            } else {
+                cell[0].removeWall(2);
+                cell[width].removeWall(0);
+            }
         }
     }
 

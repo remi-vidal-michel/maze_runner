@@ -26,17 +26,17 @@ public class GraphBasedMazeGenerator implements MazeGenerator {
             int x = id % width;
             int y = id / width;
 
-            if (x != 0 && !cell[id - 1].isVisited()) {
-                possibilities.add(3);
+            if (y != 0 && !cell[id - width].isVisited()) {
+                possibilities.add(0);
             }
             if (x != width - 1 && !cell[id + 1].isVisited()) {
                 possibilities.add(1);
             }
-            if (y != 0 && !cell[id - width].isVisited()) {
-                possibilities.add(0);
-            }
             if (y != height - 1 && !cell[id + width].isVisited()) {
                 possibilities.add(2);
+            }
+            if (x != 0 && !cell[id - 1].isVisited()) {
+                possibilities.add(3);
             }
 
             if (!possibilities.isEmpty()) {

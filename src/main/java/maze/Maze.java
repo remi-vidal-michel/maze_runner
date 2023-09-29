@@ -15,12 +15,12 @@ public class Maze {
         this.generationType = generationType; // perfect or imperfect
         this.generatorMethod = generatorMethod; // simple, graph or optimized
         cell = new Cell[width * height];
-        initializeGrid();
+        initializeCells();
         selectGenerator();
         displayMaze();
     }
 
-    public void selectGenerator()  {
+    public void selectGenerator()  { // selects algorithm
         switch (generationType) {
             case "perfect" -> {
                 switch (generatorMethod) {
@@ -39,28 +39,30 @@ public class Maze {
         }
     }
 
-    private void initializeGrid() {
+    private void initializeCells() { // initializes cells
         for (int id = 0; id < cell.length; id++) {
                 cell[id] = new Cell(id);
             }
     }
 
-    public void displayMaze() {
-        cell[0].removeWall(0);
-        cell[cell.length - 1].removeWall(2);
-        int delta = 0;
+    public void displayMaze() { // prints the maze
+
+        cell[0].removeWall(0); // Entry
+        cell[cell.length - 1].removeWall(2); // Exit
+
+        int id = 0;
         for (int y = 0; y < height; y++) {
-            StringBuilder str1 = new StringBuilder();
-            StringBuilder str2 = new StringBuilder();
-            StringBuilder str3 = new StringBuilder();
+            StringBuilder row1 = new StringBuilder();
+            StringBuilder row2 = new StringBuilder();
+            StringBuilder row3 = new StringBuilder();
             for (int x = 0; x < width; x++) {
-                String[] strs = cell[x + delta].getCell();
-                str1.append(strs[0]);
-                str2.append(strs[1]);
-                str3.append(strs[2]);
+                String[] strCell = cell[x + id].printCell();
+                row1.append(strCell[0]);
+                row2.append(strCell[1]);
+                row3.append(strCell[2]);
             }
-            delta += width;
-            System.out.println(str1 + "\n" + str2 + "\n" + str3);
+            id += width; // next row
+            System.out.println(row1 + "\n" + row2 + "\n" + row3);
         }
     }
 }

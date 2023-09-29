@@ -1,7 +1,7 @@
 package maze;
 
 public class Cell {
-    public int id; // Cell's id in the maze
+    public int id;
     private boolean visited = false;
     private final boolean[] wall = {true, true, true, true}; // Top, Right, Bottom, Left
 
@@ -14,7 +14,7 @@ public class Cell {
     public boolean isVisited() {
         return visited;
     }
-    public void setVisited() { this.visited = true; }
+    public void setVisited() { visited = true; }
     public boolean hasWall(int direction) { return wall[direction]; }
     public void removeWall(int direction) {
         wall[direction] = false;
@@ -22,15 +22,7 @@ public class Cell {
 
     // Methods
 
-    public String[] getCell() {
-        String top = wall[0] ? "#" : ".";
-        String right = wall[1] ? "#" : ".";
-        String bot = wall[2] ? "#" : ".";
-        String left = wall[3] ? "#" : ".";
-        String[] cell = new String[3];
-        cell[0] = "#" + top + "#";
-        cell[1] = left + "." + right;
-        cell[2] = "#" + bot + "#";
-        return cell;
+    public String[] printCell() {
+        return new String[]{"#" + (wall[0] ? "#" : ".") + "#", (wall[3] ? "#" : ".") + "." + (wall[1] ? "#" : "."), "#" + (wall[2] ? "#" : ".") + "#"};
     }
 }

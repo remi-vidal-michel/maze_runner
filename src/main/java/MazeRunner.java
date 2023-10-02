@@ -3,7 +3,7 @@ import maze.Maze;
 public class MazeRunner {
     public static void main(String[] args) {
         try {
-            if (args.length != 4) {
+            if (args.length != 4) { // checks if the number of arguments is correct
                 howToUse();
                 return;
             }
@@ -30,6 +30,7 @@ public class MazeRunner {
             System.err.println("Erreur : Veuillez fournir une largeur et une hauteur valides supérieurs à 5");
             howToUse();
         } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException | OutOfMemoryError e) {
+            // Prevents crash if the user provides a W/L that is too large
             System.err.println("Erreur inattendue lors de la génération du labyrinthe. Veuillez réessayer.");
         }
     }
